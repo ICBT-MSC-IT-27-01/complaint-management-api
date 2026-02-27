@@ -1,0 +1,10 @@
+using Cd.Cms.Application.DTOs.Reports;
+
+namespace Cd.Cms.Application.Contracts.Repositories
+{
+    public interface IReportRepository
+    {
+        Task<DashboardDto> GetDashboardAsync(long actorUserId, string role);
+        Task<ComplaintSummaryDto> GetComplaintSummaryAsync(ReportFilterRequest request);
+    }
+}

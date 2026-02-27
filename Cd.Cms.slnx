@@ -1,0 +1,12 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="CLAUDE.md" />
+    <File Path="README.md" />
+  </Folder>
+  <Project Path="Cd.Cms.Api\Cd.Cms.Api.csproj" />
+  <Project Path="Cd.Cms.Application\Cd.Cms.Application.csproj" />
+  <Project Path="Cd.Cms.Domain\Cd.Cms.Domain.csproj" />
+  <Project Path="Cd.Cms.Infrastructure\Cd.Cms.Infrastructure.csproj" />
+  <Project Path="Cd.Cms.Shared\Cd.Cms.Shared.csproj" />
+  <Project Path="Cd.Cms.Tests\Cd.Cms.Tests.csproj" />
+</Solution>

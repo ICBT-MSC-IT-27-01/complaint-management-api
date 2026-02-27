@@ -1,0 +1,29 @@
+using Cd.Cms.Application.Contracts.Services;
+using Cd.Cms.Application.DTOs.Users;
+using Cd.Cms.Shared.Responses;
+using Microsoft.AspNetCore.Mvc;
+
+namespace Cd.Cms.Api.Controllers
+{
+    [ApiController]
+    [Route("api/v1/auth")]
+    public sealed class AuthController : ControllerBase
+    {
+        private readonly IAuthService _auth;
+        public AuthController(IAuthService auth) => _auth = auth;
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LoginRequestDto dto, CancellationToken ct)
+        {
+            try
+            {
+                if (dto == null) return BadRequest(ApiResponse<object>.ValidationError("Request body is required."));
+                var result = await _auth.LoginAsync(dto, ct);
+                return Ok(ApiResponse<object>.Success("Login successful.", result));
+            }
+            catch (UnauthorizedAccessException ex) { return Unauthorized(ApiResponse<object>.Unauthorized(ex.Message)); }
+            catch (InvalidOperationException ex)   { return BadRequest(ApiResponse<object>.Error(ex.Message, ResponseCodes.BAD_REQUEST)); }
+            catch (Exception ex)                   { return StatusCode(500, ApiResponse<object>.Error(ex.Message)); }
+        }
+    }
+}

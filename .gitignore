@@ -1,0 +1,9 @@
+**/bin/
+**/obj/
+*.user
+*.suo
+.vs/
+**/appsettings.Production.json
+**/appsettings.Local.json
+uploads/
+CmsUploads/
