@@ -18,10 +18,32 @@ namespace Cd.Cms.Api.Controllers
             try
             {
                 if (dto == null) return BadRequest(ApiResponse<object>.ValidationError("Request body is required."));
+
+                if (string.IsNullOrWhiteSpace(dto.Password))
+                {
+                    var check = await _auth.CheckClientEmailAsync(dto.EmailOrUsername, ct);
+                    return Ok(ApiResponse<object>.Success("Email check completed.", check));
+                }
+
                 var result = await _auth.LoginAsync(dto, ct);
                 return Ok(ApiResponse<object>.Success("Login successful.", result));
             }
+            catch (ArgumentException ex)          { return BadRequest(ApiResponse<object>.ValidationError(ex.Message)); }
             catch (UnauthorizedAccessException ex) { return Unauthorized(ApiResponse<object>.Unauthorized(ex.Message)); }
+            catch (InvalidOperationException ex)   { return BadRequest(ApiResponse<object>.Error(ex.Message, ResponseCodes.BAD_REQUEST)); }
+            catch (Exception ex)                   { return StatusCode(500, ApiResponse<object>.Error(ex.Message)); }
+        }
+
+        [HttpPost("client/register")]
+        public async Task<IActionResult> RegisterClient([FromBody] ClientRegisterRequestDto dto, CancellationToken ct)
+        {
+            try
+            {
+                if (dto == null) return BadRequest(ApiResponse<object>.ValidationError("Request body is required."));
+                var result = await _auth.RegisterClientAsync(dto, ct);
+                return StatusCode(201, ApiResponse<object>.Success("Client account created.", result));
+            }
+            catch (ArgumentException ex)          { return BadRequest(ApiResponse<object>.ValidationError(ex.Message)); }
             catch (InvalidOperationException ex)   { return BadRequest(ApiResponse<object>.Error(ex.Message, ResponseCodes.BAD_REQUEST)); }
             catch (Exception ex)                   { return StatusCode(500, ApiResponse<object>.Error(ex.Message)); }
         }

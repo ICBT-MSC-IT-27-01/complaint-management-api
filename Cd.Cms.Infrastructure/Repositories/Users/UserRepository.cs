@@ -32,6 +32,16 @@ namespace Cd.Cms.Infrastructure.Repositories.Users
             return await r.ReadAsync() ? MapUser(r) : null;
         }
 
+        public async Task<AuthUserDto?> GetAuthUserByEmailOrUsernameAsync(string emailOrUsername)
+        {
+            using var conn = (SqlConnection)_db.CreateConnection();
+            using var cmd = new SqlCommand(UserSpNames.GetByEmailOrUsername, conn) { CommandType = CommandType.StoredProcedure };
+            cmd.Parameters.AddWithValue("@EmailOrUsername", emailOrUsername);
+            await conn.OpenAsync();
+            using var r = await cmd.ExecuteReaderAsync();
+            return await r.ReadAsync() ? MapAuthUser(r) : null;
+        }
+
         public async Task<PagedResult<UserDto>> SearchAsync(UserSearchRequest request)
         {
             using var conn = (SqlConnection)_db.CreateConnection();
@@ -126,6 +136,18 @@ namespace Cd.Cms.Infrastructure.Repositories.Users
             IsLocked         = DataReader.GetBool(r, "IsLocked"),
             CreatedDateTime  = DataReader.GetDate(r, "CreatedDateTime"),
             LastLoginDateTime = DataReader.GetNullableDate(r, "LastLoginDateTime"),
+        };
+
+        private static AuthUserDto MapAuthUser(SqlDataReader r) => new()
+        {
+            Id           = DataReader.GetLong(r, "Id"),
+            Name         = DataReader.GetString(r, "Name"),
+            Email        = DataReader.GetString(r, "Email"),
+            Username     = DataReader.GetString(r, "Username"),
+            Role         = DataReader.GetString(r, "Role"),
+            IsActive     = DataReader.GetBool(r, "IsActive"),
+            IsLocked     = DataReader.GetBool(r, "IsLocked"),
+            PasswordHash = DataReader.GetString(r, "PasswordHash"),
         };
     }
 }

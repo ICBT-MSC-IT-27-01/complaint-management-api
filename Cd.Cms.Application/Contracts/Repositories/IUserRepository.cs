@@ -7,6 +7,7 @@ namespace Cd.Cms.Application.Contracts.Repositories
     {
         Task<UserDto?> GetByIdAsync(long id);
         Task<UserDto?> GetByEmailOrUsernameAsync(string emailOrUsername);
+        Task<AuthUserDto?> GetAuthUserByEmailOrUsernameAsync(string emailOrUsername);
         Task<PagedResult<UserDto>> SearchAsync(UserSearchRequest request);
         Task<UserDto> CreateAsync(CreateUserRequest request, long actorUserId);
         Task UpdateAsync(long id, UpdateUserRequest request, long actorUserId);

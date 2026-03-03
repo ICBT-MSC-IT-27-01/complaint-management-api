@@ -203,8 +203,8 @@ CREATE TABLE AuditLogs (
     CreatedDateTime   DATETIME2      NOT NULL DEFAULT GETUTCDATE()
 );
 
--- Seed default admin user (password: Admin@123 — change immediately!)
+-- Seed default admin user (temporary plaintext password: Admin@123 — change immediately!)
 INSERT INTO Users (Name, Email, Username, PasswordHash, Role, IsActive, CreatedBy)
 VALUES ('System Admin', 'admin@cms.com', 'admin',
-    'AQAAAAIAAYagAAAAEPlaceholderHashReplaceWithRealBcryptHash', 'Admin', 1, 0);
+    'Admin@123', 'Admin', 1, 0);
 GO
