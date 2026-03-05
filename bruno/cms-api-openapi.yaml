@@ -682,7 +682,8 @@ components:
         phoneNumber: { type: string }
         password: { type: string }
         role: { type: string, example: Agent }
-      required: [name, email, username, phoneNumber, password, role]
+        isActive: { type: boolean, default: true }
+      required: [name, email, username, phoneNumber, password, role, isActive]
     UpdateUserRequest:
       type: object
       properties:
@@ -691,7 +692,8 @@ components:
         username: { type: string }
         phoneNumber: { type: string }
         role: { type: string }
-      required: [name, email, username, phoneNumber, role]
+        isActive: { type: boolean }
+      required: [name, email, username, phoneNumber, role, isActive]
     ChangePasswordRequest:
       type: object
       properties:

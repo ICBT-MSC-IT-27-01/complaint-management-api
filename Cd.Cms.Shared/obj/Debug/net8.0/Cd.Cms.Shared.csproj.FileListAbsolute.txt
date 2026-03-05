@@ -27,3 +27,16 @@ C:\CMS\ICBT\complaint-management-api-srs-dev\Cd.Cms.Shared\obj\Debug\net8.0\Cd.C
 C:\CMS\ICBT\complaint-management-api-srs-dev\Cd.Cms.Shared\obj\Debug\net8.0\refint\Cd.Cms.Shared.dll
 C:\CMS\ICBT\complaint-management-api-srs-dev\Cd.Cms.Shared\obj\Debug\net8.0\Cd.Cms.Shared.pdb
 C:\CMS\ICBT\complaint-management-api-srs-dev\Cd.Cms.Shared\obj\Debug\net8.0\ref\Cd.Cms.Shared.dll
+C:\CMS\ICBT\complaint-management-api-dev\Cd.Cms.Shared\bin\Debug\net8.0\Cd.Cms.Shared.deps.json
+C:\CMS\ICBT\complaint-management-api-dev\Cd.Cms.Shared\bin\Debug\net8.0\Cd.Cms.Shared.dll
+C:\CMS\ICBT\complaint-management-api-dev\Cd.Cms.Shared\bin\Debug\net8.0\Cd.Cms.Shared.pdb
+C:\CMS\ICBT\complaint-management-api-dev\Cd.Cms.Shared\obj\Debug\net8.0\Cd.Cms.Shared.csproj.AssemblyReference.cache
+C:\CMS\ICBT\complaint-management-api-dev\Cd.Cms.Shared\obj\Debug\net8.0\Cd.Cms.Shared.GeneratedMSBuildEditorConfig.editorconfig
+C:\CMS\ICBT\complaint-management-api-dev\Cd.Cms.Shared\obj\Debug\net8.0\Cd.Cms.Shared.AssemblyInfoInputs.cache
+C:\CMS\ICBT\complaint-management-api-dev\Cd.Cms.Shared\obj\Debug\net8.0\Cd.Cms.Shared.AssemblyInfo.cs
+C:\CMS\ICBT\complaint-management-api-dev\Cd.Cms.Shared\obj\Debug\net8.0\Cd.Cms.Shared.csproj.CoreCompileInputs.cache
+C:\CMS\ICBT\complaint-management-api-dev\Cd.Cms.Shared\obj\Debug\net8.0\Cd.Cms.Shared.sourcelink.json
+C:\CMS\ICBT\complaint-management-api-dev\Cd.Cms.Shared\obj\Debug\net8.0\Cd.Cms.Shared.dll
+C:\CMS\ICBT\complaint-management-api-dev\Cd.Cms.Shared\obj\Debug\net8.0\refint\Cd.Cms.Shared.dll
+C:\CMS\ICBT\complaint-management-api-dev\Cd.Cms.Shared\obj\Debug\net8.0\Cd.Cms.Shared.pdb
+C:\CMS\ICBT\complaint-management-api-dev\Cd.Cms.Shared\obj\Debug\net8.0\ref\Cd.Cms.Shared.dll

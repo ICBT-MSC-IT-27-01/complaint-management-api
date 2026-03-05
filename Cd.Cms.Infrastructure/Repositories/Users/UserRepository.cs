@@ -71,6 +71,7 @@ namespace Cd.Cms.Infrastructure.Repositories.Users
             cmd.Parameters.AddWithValue("@PhoneNumber",  (object?)req.PhoneNumber ?? DBNull.Value);
             cmd.Parameters.AddWithValue("@PasswordHash", req.Password);
             cmd.Parameters.AddWithValue("@Role",         req.Role);
+            cmd.Parameters.AddWithValue("@IsActive",     req.IsActive);
             cmd.Parameters.AddWithValue("@Department",   (object?)req.Department ?? DBNull.Value);
             cmd.Parameters.AddWithValue("@ReportingManagerId", (object?)req.ReportingManagerId ?? DBNull.Value);
             cmd.Parameters.AddWithValue("@ActorUserId",  actorUserId);
@@ -90,6 +91,7 @@ namespace Cd.Cms.Infrastructure.Repositories.Users
             cmd.Parameters.AddWithValue("@Username",    req.Username);
             cmd.Parameters.AddWithValue("@PhoneNumber", (object?)req.PhoneNumber ?? DBNull.Value);
             cmd.Parameters.AddWithValue("@Role",        req.Role);
+            cmd.Parameters.AddWithValue("@IsActive",    req.IsActive);
             cmd.Parameters.AddWithValue("@Department",   (object?)req.Department ?? DBNull.Value);
             cmd.Parameters.AddWithValue("@ReportingManagerId", (object?)req.ReportingManagerId ?? DBNull.Value);
             cmd.Parameters.AddWithValue("@ActorUserId", actorUserId);
