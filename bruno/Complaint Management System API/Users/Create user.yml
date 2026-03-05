@@ -17,7 +17,8 @@ http:
         "username": "",
         "phoneNumber": "",
         "password": "",
-        "role": "Agent"
+        "role": "Agent",
+        "isActive": true
       }
   auth: inherit
 
@@ -42,7 +43,8 @@ examples:
             "username": "",
             "phoneNumber": "",
             "password": "",
-            "role": "Agent"
+            "role": "Agent",
+            "isActive": true
           }
     response:
       status: 201
