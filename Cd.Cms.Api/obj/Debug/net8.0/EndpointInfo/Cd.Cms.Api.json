@@ -1376,6 +1376,18 @@
         }
       }
     },
+    "/api/v1/health/ui": {
+      "get": {
+        "tags": [
+          "Health"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/v1/reports/dashboard": {
       "get": {
         "tags": [
@@ -2367,6 +2379,9 @@
             "type": "string",
             "nullable": true
           },
+          "isActive": {
+            "type": "boolean"
+          },
           "department": {
             "type": "string",
             "nullable": true
@@ -2596,6 +2611,9 @@
           "role": {
             "type": "string",
             "nullable": true
+          },
+          "isActive": {
+            "type": "boolean"
           },
           "department": {
             "type": "string",

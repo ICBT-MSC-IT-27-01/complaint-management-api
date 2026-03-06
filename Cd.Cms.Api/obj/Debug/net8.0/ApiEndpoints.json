@@ -838,6 +838,16 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Cd.Cms.Api.Controllers.HealthController",
+    "Method": "Ui",
+    "RelativePath": "api/v1/health/ui",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Cd.Cms.Api.Controllers.ReportsController",
     "Method": "ComplaintSummary",
     "RelativePath": "api/v1/reports/complaints-summary",
