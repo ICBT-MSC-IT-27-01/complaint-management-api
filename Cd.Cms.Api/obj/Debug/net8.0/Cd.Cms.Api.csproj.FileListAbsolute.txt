@@ -244,7 +244,6 @@ C:\CMS\ICBT\complaint-management-api-dev\Cd.Cms.Api\obj\Debug\net8.0\staticwebas
 C:\CMS\ICBT\complaint-management-api-dev\Cd.Cms.Api\obj\Debug\net8.0\staticwebassets.development.json
 C:\CMS\ICBT\complaint-management-api-dev\Cd.Cms.Api\obj\Debug\net8.0\staticwebassets.build.endpoints.json
 C:\CMS\ICBT\complaint-management-api-dev\Cd.Cms.Api\obj\Debug\net8.0\swae.build.ex.cache
-C:\CMS\ICBT\complaint-management-api-dev\Cd.Cms.Api\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 C:\CMS\ICBT\complaint-management-api-dev\Cd.Cms.Api\obj\Debug\net8.0\Cd.Cms.Api.csproj.Up2Date
 C:\CMS\ICBT\complaint-management-api-dev\Cd.Cms.Api\obj\Debug\net8.0\Cd.Cms.Api.dll
 C:\CMS\ICBT\complaint-management-api-dev\Cd.Cms.Api\obj\Debug\net8.0\refint\Cd.Cms.Api.dll

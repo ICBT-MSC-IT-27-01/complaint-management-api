@@ -13,6 +13,12 @@ namespace Cd.Cms.Application.Contracts.Repositories
         Task UpdateAsync(long id, UpdateUserRequest request, long actorUserId);
         Task DeleteAsync(long id, long actorUserId);
         Task ChangePasswordAsync(long id, string newPasswordHash, long actorUserId);
+        Task<bool> SetTemporaryPasswordAndSendEmailAsync(
+            long id,
+            string email,
+            string temporaryPassword,
+            string temporaryPasswordHash,
+            long actorUserId);
         Task<List<UserDto>> GetAgentsAsync();
     }
 }

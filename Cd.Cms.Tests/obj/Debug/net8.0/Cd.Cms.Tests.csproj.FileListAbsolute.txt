@@ -14,3 +14,11 @@ C:\CMS\ICBT\complaint-management-api-srs-dev\Cd.Cms.Tests\obj\Debug\net8.0\Cd.Cm
 C:\CMS\ICBT\complaint-management-api-srs-dev\Cd.Cms.Tests\obj\Debug\net8.0\Cd.Cms.Tests.AssemblyInfo.cs
 C:\CMS\ICBT\complaint-management-api-srs-dev\Cd.Cms.Tests\obj\Debug\net8.0\Cd.Cms.Tests.csproj.CoreCompileInputs.cache
 C:\CMS\ICBT\complaint-management-api-srs-dev\Cd.Cms.Tests\obj\Debug\net8.0\Cd.Cms.Tests.sourcelink.json
+C:\CMS\ICBT\complaint-management-api-dev\Cd.Cms.Tests\bin\Debug\net8.0\.msCoverageSourceRootsMapping_Cd.Cms.Tests
+C:\CMS\ICBT\complaint-management-api-dev\Cd.Cms.Tests\bin\Debug\net8.0\CoverletSourceRootsMapping_Cd.Cms.Tests
+C:\CMS\ICBT\complaint-management-api-dev\Cd.Cms.Tests\obj\Debug\net8.0\Cd.Cms.Tests.csproj.AssemblyReference.cache
+C:\CMS\ICBT\complaint-management-api-dev\Cd.Cms.Tests\obj\Debug\net8.0\Cd.Cms.Tests.GeneratedMSBuildEditorConfig.editorconfig
+C:\CMS\ICBT\complaint-management-api-dev\Cd.Cms.Tests\obj\Debug\net8.0\Cd.Cms.Tests.AssemblyInfoInputs.cache
+C:\CMS\ICBT\complaint-management-api-dev\Cd.Cms.Tests\obj\Debug\net8.0\Cd.Cms.Tests.AssemblyInfo.cs
+C:\CMS\ICBT\complaint-management-api-dev\Cd.Cms.Tests\obj\Debug\net8.0\Cd.Cms.Tests.csproj.CoreCompileInputs.cache
+C:\CMS\ICBT\complaint-management-api-dev\Cd.Cms.Tests\obj\Debug\net8.0\Cd.Cms.Tests.sourcelink.json

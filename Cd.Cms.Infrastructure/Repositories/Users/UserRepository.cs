@@ -120,6 +120,26 @@ namespace Cd.Cms.Infrastructure.Repositories.Users
             await cmd.ExecuteNonQueryAsync();
         }
 
+        public async Task<bool> SetTemporaryPasswordAndSendEmailAsync(
+            long id,
+            string email,
+            string temporaryPassword,
+            string temporaryPasswordHash,
+            long actorUserId)
+        {
+            using var conn = (SqlConnection)_db.CreateConnection();
+            using var cmd = new SqlCommand(UserSpNames.ForgotPassword, conn) { CommandType = CommandType.StoredProcedure };
+            cmd.Parameters.AddWithValue("@Id", id);
+            cmd.Parameters.AddWithValue("@Email", email);
+            cmd.Parameters.AddWithValue("@TemporaryPassword", temporaryPassword);
+            cmd.Parameters.AddWithValue("@TemporaryPasswordHash", temporaryPasswordHash);
+            cmd.Parameters.AddWithValue("@ActorUserId", actorUserId);
+
+            await conn.OpenAsync();
+            using var r = await cmd.ExecuteReaderAsync();
+            return await r.ReadAsync() && r.GetBoolean(0);
+        }
+
         public async Task<List<UserDto>> GetAgentsAsync()
         {
             using var conn = (SqlConnection)_db.CreateConnection();

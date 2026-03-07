@@ -55,7 +55,7 @@ namespace Cd.Cms.Api.Controllers
             {
                 if (dto == null) return BadRequest(ApiResponse<object>.ValidationError("Request body is required."));
                 var result = await _auth.ForgotPasswordAsync(dto, ct);
-                return Ok(ApiResponse<object>.Success("Forgot password request accepted.", result));
+                return Ok(ApiResponse<object>.Success("Temporary password request accepted.", result));
             }
             catch (ArgumentException ex) { return BadRequest(ApiResponse<object>.ValidationError(ex.Message)); }
             catch (Exception ex)         { return StatusCode(500, ApiResponse<object>.Error(ex.Message)); }

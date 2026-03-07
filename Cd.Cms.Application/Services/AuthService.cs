@@ -21,7 +21,9 @@ namespace Cd.Cms.Application.Services
         private readonly JwtSettings _jwt;
         private readonly PasswordHasher<User> _hasher = new();
         private const int MaxFailedAttempts = 5;
+        private const int TemporaryPasswordLength = 6;
         private static readonly TimeSpan LockoutDuration = TimeSpan.FromMinutes(15);
+        private const string TemporaryPasswordCharacters = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789";
 
         private static readonly ConcurrentDictionary<long, FailedAttemptState> FailedAttempts = new();
         private static readonly ConcurrentDictionary<string, PasswordResetState> PasswordResets = new(StringComparer.OrdinalIgnoreCase);
@@ -162,25 +164,36 @@ namespace Cd.Cms.Application.Services
                 return new ForgotPasswordResponseDto
                 {
                     RequestAccepted = true,
-                    Message = "If the account exists, reset instructions were generated."
+                    Message = "If the account exists, a temporary password has been sent."
                 };
             }
 
+            var temporaryPassword = GenerateTemporaryPassword();
+            var temporaryPasswordHash = _hasher.HashPassword(new User(), temporaryPassword);
+            var isUpdated = await _users.SetTemporaryPasswordAndSendEmailAsync(
+                user.Id,
+                user.Email,
+                temporaryPassword,
+                temporaryPasswordHash,
+                actorUserId: 0);
+
+            if (!isUpdated)
+                throw new InvalidOperationException("Unable to process forgot password request.");
+
             var token = Convert.ToHexString(RandomNumberGenerator.GetBytes(24));
-            var expiresAt = DateTime.UtcNow.AddMinutes(20);
             PasswordResets[normalizedEmail] = new PasswordResetState
             {
                 UserId = user.Id,
                 Token = token,
-                ExpiresAtUtc = expiresAt
+                ExpiresAtUtc = DateTime.UtcNow.AddMinutes(20)
             };
+
+            ClearFailedAttempts(user.Id);
 
             return new ForgotPasswordResponseDto
             {
                 RequestAccepted = true,
-                Message = "Reset token generated.",
-                DemoResetToken = token,
-                ExpiresAtUtc = expiresAt
+                Message = "If the account exists, a temporary password has been sent."
             };
         }
 
@@ -278,6 +291,20 @@ namespace Cd.Cms.Application.Services
             var number = BitConverter.ToInt32(bytes, 0);
             var positive = Math.Abs(number % 1000000);
             return positive.ToString("D6");
+        }
+
+        private static string GenerateTemporaryPassword()
+        {
+            Span<byte> randomBytes = stackalloc byte[TemporaryPasswordLength];
+            RandomNumberGenerator.Fill(randomBytes);
+
+            var buffer = new char[TemporaryPasswordLength];
+            for (var i = 0; i < TemporaryPasswordLength; i++)
+            {
+                buffer[i] = TemporaryPasswordCharacters[randomBytes[i] % TemporaryPasswordCharacters.Length];
+            }
+
+            return new string(buffer);
         }
 
         private bool IsPasswordValid(string storedPasswordHash, string providedPassword)
