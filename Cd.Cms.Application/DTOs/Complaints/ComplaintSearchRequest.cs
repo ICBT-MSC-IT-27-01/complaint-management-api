@@ -8,6 +8,8 @@ namespace Cd.Cms.Application.DTOs.Complaints
         public string? Department { get; set; }
         public string? Priority { get; set; }
         public long? AssignedToUserId { get; set; }
+        public long? CreatedByUserId { get; set; }
+        public string? ClientEmail { get; set; }
         public string? Q { get; set; }
         public DateTime? From { get; set; }
         public DateTime? To { get; set; }

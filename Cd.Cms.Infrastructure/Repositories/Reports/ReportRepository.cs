@@ -12,11 +12,12 @@ namespace Cd.Cms.Infrastructure.Repositories.Reports
         private readonly IDbFactory _db;
         public ReportRepository(IDbFactory db) => _db = db;
 
-        public async Task<DashboardDto> GetDashboardAsync(long actorUserId, string role, DashboardRequest request)
+        public async Task<DashboardDto> GetDashboardAsync(long actorUserId, string actorEmail, string role, DashboardRequest request)
         {
             using var conn = (SqlConnection)_db.CreateConnection();
             using var cmd = new SqlCommand(ReportSpNames.GetDashboard, conn) { CommandType = CommandType.StoredProcedure };
             cmd.Parameters.AddWithValue("@ActorUserId", actorUserId);
+            cmd.Parameters.AddWithValue("@ActorEmail",  (object?)actorEmail ?? DBNull.Value);
             cmd.Parameters.AddWithValue("@Role",        role);
             cmd.Parameters.AddWithValue("@Period",      request.Period);
             cmd.Parameters.AddWithValue("@From",        (object?)request.From ?? DBNull.Value);

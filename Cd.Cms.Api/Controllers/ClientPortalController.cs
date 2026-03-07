@@ -50,20 +50,12 @@ namespace Cd.Cms.Api.Controllers
         {
             var search = await _complaints.SearchAsync(new ComplaintSearchRequest
             {
+                CreatedByUserId = GetActorUserId(),
+                ClientEmail = GetActorEmail(),
                 Page = Math.Max(page, 1),
                 PageSize = Math.Clamp(pageSize, 1, 200),
             });
-
-            var actorEmail = GetActorEmail();
-            var filtered = new List<ComplaintListItemDto>();
-            foreach (var item in search.Items)
-            {
-                var full = await _complaints.GetByIdAsync(item.Id);
-                if (full != null && string.Equals(full.ClientEmail, actorEmail, StringComparison.OrdinalIgnoreCase))
-                    filtered.Add(item);
-            }
-
-            return Ok(ApiResponse<object>.Success("My complaints loaded.", filtered));
+            return Ok(ApiResponse<object>.Success("My complaints loaded.", search.Items));
         }
 
         [HttpPost("complaints/{id:long}/reply")]

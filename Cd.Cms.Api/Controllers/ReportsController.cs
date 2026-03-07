@@ -25,7 +25,7 @@ namespace Cd.Cms.Api.Controllers
         [HttpGet("dashboard")]
         public async Task<IActionResult> Dashboard([FromQuery] DashboardRequest req)
         {
-            var result = await _svc.GetDashboardAsync(GetActorUserId(), GetActorRole(), req ?? new());
+            var result = await _svc.GetDashboardAsync(GetActorUserId(), GetActorEmail(), GetActorRole(), req ?? new());
             return Ok(ApiResponse<object>.Success("Dashboard loaded.", result));
         }
 
@@ -86,6 +86,7 @@ namespace Cd.Cms.Api.Controllers
         }
 
         private long GetActorUserId() => long.Parse(User.FindFirst("uid")?.Value ?? "0");
+        private string GetActorEmail() => User.FindFirst(ClaimTypes.Email)?.Value ?? string.Empty;
         private string GetActorRole() => User.FindFirst(ClaimTypes.Role)?.Value ?? string.Empty;
 
         private static byte[] BuildSimplePdf(string text)

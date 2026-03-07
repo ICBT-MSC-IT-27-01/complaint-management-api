@@ -43,3 +43,6 @@ C:\CMS\ICBT\complaint-management-api-dev\artifacts\verify-api-parent-category\Cd
 C:\CMS\ICBT\complaint-management-api-dev\artifacts\verify-api-parentcategories-v2\Cd.Cms.Domain.deps.json
 C:\CMS\ICBT\complaint-management-api-dev\artifacts\verify-api-parentcategories-v2\Cd.Cms.Domain.dll
 C:\CMS\ICBT\complaint-management-api-dev\artifacts\verify-api-parentcategories-v2\Cd.Cms.Domain.pdb
+C:\CMS\ICBT\complaint-management-api-dev\artifacts\verify-api-dashboard-userwise\Cd.Cms.Domain.deps.json
+C:\CMS\ICBT\complaint-management-api-dev\artifacts\verify-api-dashboard-userwise\Cd.Cms.Domain.dll
+C:\CMS\ICBT\complaint-management-api-dev\artifacts\verify-api-dashboard-userwise\Cd.Cms.Domain.pdb

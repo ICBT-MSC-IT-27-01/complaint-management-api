@@ -32,6 +32,8 @@ namespace Cd.Cms.Infrastructure.Repositories.Complaints
             cmd.Parameters.AddWithValue("@Department",      (object?)req.Department      ?? DBNull.Value);
             cmd.Parameters.AddWithValue("@Priority",        (object?)req.Priority        ?? DBNull.Value);
             cmd.Parameters.AddWithValue("@AssignedToUserId",(object?)req.AssignedToUserId?? DBNull.Value);
+            cmd.Parameters.AddWithValue("@CreatedByUserId", (object?)req.CreatedByUserId ?? DBNull.Value);
+            cmd.Parameters.AddWithValue("@ClientEmail",     (object?)req.ClientEmail     ?? DBNull.Value);
             cmd.Parameters.AddWithValue("@Q",               (object?)req.Q               ?? DBNull.Value);
             cmd.Parameters.AddWithValue("@From",            (object?)req.From            ?? DBNull.Value);
             cmd.Parameters.AddWithValue("@To",              (object?)req.To              ?? DBNull.Value);

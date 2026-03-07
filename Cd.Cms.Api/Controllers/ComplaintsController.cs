@@ -3,6 +3,8 @@ using Cd.Cms.Application.DTOs.Complaints;
 using Cd.Cms.Shared.Responses;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Text;
 
 namespace Cd.Cms.Api.Controllers
@@ -20,6 +22,19 @@ namespace Cd.Cms.Api.Controllers
         {
             try
             {
+                req ??= new ComplaintSearchRequest();
+
+                var role = GetActorRole();
+                if (string.Equals(role, "Agent", StringComparison.OrdinalIgnoreCase))
+                {
+                    req.AssignedToUserId ??= GetActorUserId();
+                }
+                else if (string.Equals(role, "Client", StringComparison.OrdinalIgnoreCase))
+                {
+                    req.CreatedByUserId ??= GetActorUserId();
+                    req.ClientEmail ??= GetActorEmail();
+                }
+
                 var result = await _svc.SearchAsync(req ?? new());
                 return Ok(ApiResponse<object>.Success("Complaints loaded.", result));
             }
@@ -139,6 +154,8 @@ namespace Cd.Cms.Api.Controllers
         }
 
         private long GetActorUserId() => long.Parse(User.FindFirst("uid")?.Value ?? "0");
+        private string GetActorRole() => User.FindFirst(ClaimTypes.Role)?.Value ?? string.Empty;
+        private string GetActorEmail() => User.FindFirst(JwtRegisteredClaimNames.Email)?.Value ?? string.Empty;
         private static string Escape(string value) => value.Replace("\"", "\"\"");
     }
 }
