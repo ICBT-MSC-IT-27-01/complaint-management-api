@@ -11,6 +11,7 @@ using Cd.Cms.Infrastructure.Repositories.Cases;
 using Cd.Cms.Infrastructure.Repositories.Categories;
 using Cd.Cms.Infrastructure.Repositories.Clients;
 using Cd.Cms.Infrastructure.Repositories.Complaints;
+using Cd.Cms.Infrastructure.Repositories.Departments;
 using Cd.Cms.Infrastructure.Repositories.Reports;
 using Cd.Cms.Infrastructure.Repositories.SLA;
 using Cd.Cms.Infrastructure.Repositories.Users;
@@ -42,6 +43,7 @@ builder.Services.AddScoped<ICategoryRepository,   CategoryRepository>();
 builder.Services.AddScoped<ISlaRepository,        SlaRepository>();
 builder.Services.AddScoped<IReportRepository,     ReportRepository>();
 builder.Services.AddScoped<IAttachmentRepository, AttachmentRepository>();
+builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
 builder.Services.AddScoped<IAuditWriter, AuditWriter>();
 
 // ── Services ──────────────────────────────────────────────────────────────────
@@ -54,6 +56,7 @@ builder.Services.AddScoped<ICategoryService,   CategoryService>();
 builder.Services.AddScoped<ISlaService,        SlaService>();
 builder.Services.AddScoped<IReportService,     ReportService>();
 builder.Services.AddScoped<IAttachmentService, AttachmentService>();
+builder.Services.AddScoped<IDepartmentService, DepartmentService>();
 
 // ── File upload size limit (10 MB) ────────────────────────────────────────────
 builder.Services.Configure<Microsoft.AspNetCore.Http.Features.FormOptions>(o =>

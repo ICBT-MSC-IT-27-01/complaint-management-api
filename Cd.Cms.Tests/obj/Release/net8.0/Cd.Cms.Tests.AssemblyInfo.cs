@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Cd.Cms.Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dfa83d2419721bc254826b088e89af3d4c0a9a63")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8e197dca019cbcfc41fe37669ba199ba023917d5")]
 [assembly: System.Reflection.AssemblyProductAttribute("Cd.Cms.Tests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Cd.Cms.Tests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
