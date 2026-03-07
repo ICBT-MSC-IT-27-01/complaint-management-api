@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Cd.Cms.Domain")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b51b10b8ed785a7a36672e450feeb395729f493f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0a64e2f5c1a79f84e72451323617d029cd9325da")]
 [assembly: System.Reflection.AssemblyProductAttribute("Cd.Cms.Domain")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Cd.Cms.Domain")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

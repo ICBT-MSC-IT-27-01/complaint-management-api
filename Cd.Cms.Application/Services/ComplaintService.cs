@@ -27,6 +27,8 @@ namespace Cd.Cms.Application.Services
 
         public Task<ComplaintDto> CreateAsync(CreateComplaintRequest request, long actorUserId)
         {
+            if (request.ComplaintChannelId <= 0) throw new ArgumentException("ComplaintChannelId is required.");
+            if (request.ComplaintCategoryId <= 0) throw new ArgumentException("ComplaintCategoryId is required.");
             if (string.IsNullOrWhiteSpace(request.Subject)) throw new ArgumentException("Subject is required.");
             if (string.IsNullOrWhiteSpace(request.Description)) throw new ArgumentException("Description is required.");
             if (string.IsNullOrWhiteSpace(request.Priority)) throw new ArgumentException("Priority is required.");

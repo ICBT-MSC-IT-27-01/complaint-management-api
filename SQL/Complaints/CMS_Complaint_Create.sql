@@ -15,6 +15,26 @@ CREATE OR ALTER PROCEDURE CMS_Complaint_Create
 AS
 BEGIN
     SET NOCOUNT ON;
+    SET XACT_ABORT ON;
+
+    IF @ComplaintChannelId IS NULL OR @ComplaintChannelId <= 0
+        THROW 50001, 'ComplaintChannelId is required.', 1;
+
+    IF @ComplaintCategoryId IS NULL OR @ComplaintCategoryId <= 0
+        THROW 50002, 'ComplaintCategoryId is required.', 1;
+
+    IF NOT EXISTS (SELECT 1 FROM ComplaintChannels WHERE Id = @ComplaintChannelId)
+        THROW 50003, 'Invalid ComplaintChannelId.', 1;
+
+    IF NOT EXISTS (SELECT 1 FROM Categories WHERE Id = @ComplaintCategoryId)
+        THROW 50004, 'Invalid ComplaintCategoryId.', 1;
+
+    IF @SubCategoryId IS NOT NULL
+       AND NOT EXISTS (SELECT 1 FROM Categories WHERE Id = @SubCategoryId)
+        THROW 50005, 'Invalid SubCategoryId.', 1;
+
+    IF NOT EXISTS (SELECT 1 FROM Users WHERE Id = @ActorUserId)
+        THROW 50006, 'Invalid ActorUserId.', 1;
 
     -- Calculate SLA due date
     DECLARE @DueDate DATETIME2 = NULL;
@@ -25,27 +45,42 @@ BEGIN
     IF @ResolutionHours IS NOT NULL
         SET @DueDate = DATEADD(HOUR, @ResolutionHours, GETUTCDATE());
 
-    -- Insert complaint
-    INSERT INTO Complaints (
-        ClientId, Name, ClientEmail, ClientMobile,
-        ComplaintChannelId, ComplaintCategoryId, SubCategoryId,
-        Subject, Description, Priority, DueDate, CreatedBy
-    )
-    VALUES (
-        @ClientId, @ClientName, @ClientEmail, @ClientMobile,
-        @ComplaintChannelId, @ComplaintCategoryId, @SubCategoryId,
-        @Subject, @Description, @Priority, @DueDate, @ActorUserId
-    );
+    DECLARE @ComplaintId BIGINT;
 
-    DECLARE @ComplaintId BIGINT = SCOPE_IDENTITY();
+    BEGIN TRY
+        BEGIN TRANSACTION;
+        -- Insert complaint
+        INSERT INTO Complaints (
+            ClientId, Name, ClientEmail, ClientMobile,
+            ComplaintChannelId, ComplaintCategoryId, SubCategoryId,
+            Subject, Description, Priority, DueDate, CreatedBy
+        )
+        VALUES (
+            @ClientId, @ClientName, @ClientEmail, @ClientMobile,
+            @ComplaintChannelId, @ComplaintCategoryId, @SubCategoryId,
+            @Subject, @Description, @Priority, @DueDate, @ActorUserId
+        );
 
-    -- Auto-create linked Case
-    INSERT INTO Cases (ComplaintId, AssignedToUserId, Status)
-    VALUES (@ComplaintId, NULL, 'Open');
+        SET @ComplaintId = SCOPE_IDENTITY();
 
-    -- Log history
-    INSERT INTO ComplaintHistory (ComplaintId, Action, NewStatus, PerformedByUserId)
-    VALUES (@ComplaintId, 'Create', 'New', @ActorUserId);
+        IF @ComplaintId IS NULL
+            THROW 50007, 'Failed to create complaint.', 1;
+
+        -- Auto-create linked Case
+        INSERT INTO Cases (ComplaintId, AssignedToUserId, Status)
+        VALUES (@ComplaintId, NULL, 'Open');
+
+        -- Log history
+        INSERT INTO ComplaintHistory (ComplaintId, Action, NewStatus, PerformedByUserId)
+        VALUES (@ComplaintId, 'Create', 'New', @ActorUserId);
+
+        COMMIT TRANSACTION;
+    END TRY
+    BEGIN CATCH
+        IF XACT_STATE() <> 0
+            ROLLBACK TRANSACTION;
+        THROW;
+    END CATCH
 
     -- Return full complaint detail
     EXEC CMS_Complaint_GetById @ComplaintId;

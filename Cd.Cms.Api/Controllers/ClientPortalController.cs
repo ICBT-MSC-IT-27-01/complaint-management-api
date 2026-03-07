@@ -32,7 +32,7 @@ namespace Cd.Cms.Api.Controllers
                 {
                     ClientEmail = GetActorEmail(),
                     ComplaintCategoryId = dto.ComplaintCategoryId,
-                    ComplaintChannelId = dto.ComplaintChannelId,
+                    ComplaintChannelId = dto.ComplaintChannelId > 0 ? dto.ComplaintChannelId : 3, // default to Portal channel
                     Subject = dto.Subject,
                     Description = dto.Description,
                     Priority = "Medium"
