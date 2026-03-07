@@ -950,6 +950,21 @@
             }
           },
           {
+            "name": "CreatedByUserId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "ClientEmail",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
             "name": "Q",
             "in": "query",
             "schema": {
@@ -1356,6 +1371,21 @@
             "schema": {
               "type": "integer",
               "format": "int64"
+            }
+          },
+          {
+            "name": "CreatedByUserId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "ClientEmail",
+            "in": "query",
+            "schema": {
+              "type": "string"
             }
           },
           {

@@ -45,7 +45,8 @@ BEGIN
                 WHEN ComplaintStatusId NOT IN (6,7)
                      AND
                      (
-                         (@RoleNorm IN ('ADMIN','SUPERVISOR','AGENT') AND AssignedToUserId=@ActorUserId)
+                         (@RoleNorm IN ('ADMIN','SUPERVISOR'))
+                         OR (@RoleNorm = 'AGENT' AND AssignedToUserId=@ActorUserId)
                          OR (@RoleNorm = 'CLIENT' AND ((@ActorEmail IS NOT NULL AND ClientEmail=@ActorEmail) OR CreatedBy=@ActorUserId))
                          OR (@RoleNorm NOT IN ('ADMIN','SUPERVISOR','AGENT','CLIENT') AND CreatedBy=@ActorUserId)
                      )

@@ -522,6 +522,16 @@
         "IsRequired": false
       },
       {
+        "Name": "CreatedByUserId",
+        "Type": "System.Nullable\u00601[[System.Int64, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "ClientEmail",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
         "Name": "Q",
         "Type": "System.String",
         "IsRequired": false
@@ -823,6 +833,16 @@
       {
         "Name": "AssignedToUserId",
         "Type": "System.Nullable\u00601[[System.Int64, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "CreatedByUserId",
+        "Type": "System.Nullable\u00601[[System.Int64, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "ClientEmail",
+        "Type": "System.String",
         "IsRequired": false
       },
       {
