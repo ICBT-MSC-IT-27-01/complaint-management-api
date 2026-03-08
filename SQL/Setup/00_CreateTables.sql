@@ -102,6 +102,102 @@ CREATE TABLE TeamMembers (
     CONSTRAINT UX_TeamMembers_User UNIQUE (UserId)
 );
 
+-- Roles and Permissions
+CREATE TABLE Roles (
+    Id               BIGINT        IDENTITY(1,1) PRIMARY KEY,
+    Role             NVARCHAR(100) NOT NULL UNIQUE,
+    DisplayName      NVARCHAR(150) NOT NULL,
+    IsSystem         BIT           NOT NULL DEFAULT 1,
+    IsActive         BIT           NOT NULL DEFAULT 1,
+    CreatedDateTime  DATETIME2     NOT NULL DEFAULT GETUTCDATE(),
+    CreatedBy        BIGINT        NOT NULL DEFAULT 0,
+    UpdatedDateTime  DATETIME2     NULL,
+    UpdatedBy        BIGINT        NULL
+);
+
+CREATE TABLE PermissionModules (
+    Id               BIGINT        IDENTITY(1,1) PRIMARY KEY,
+    Module           NVARCHAR(100) NOT NULL UNIQUE,
+    DisplayName      NVARCHAR(150) NOT NULL,
+    IsActive         BIT           NOT NULL DEFAULT 1,
+    CreatedDateTime  DATETIME2     NOT NULL DEFAULT GETUTCDATE()
+);
+
+CREATE TABLE RolePermissions (
+    RoleId           BIGINT        NOT NULL REFERENCES Roles(Id),
+    ModuleId         BIGINT        NOT NULL REFERENCES PermissionModules(Id),
+    CanRead          BIT           NOT NULL DEFAULT 0,
+    CanWrite         BIT           NOT NULL DEFAULT 0,
+    CanDelete        BIT           NOT NULL DEFAULT 0,
+    UpdatedDateTime  DATETIME2     NOT NULL DEFAULT GETUTCDATE(),
+    UpdatedBy        BIGINT        NOT NULL DEFAULT 0,
+    PRIMARY KEY (RoleId, ModuleId)
+);
+
+CREATE TABLE PermissionAuditTrail (
+    Id               BIGINT        IDENTITY(1,1) PRIMARY KEY,
+    RoleId           BIGINT        NULL REFERENCES Roles(Id),
+    Action           NVARCHAR(50)  NOT NULL,
+    Details          NVARCHAR(MAX) NULL,
+    ChangedByUserId  BIGINT        NULL REFERENCES Users(Id),
+    ChangedDateTime  DATETIME2     NOT NULL DEFAULT GETUTCDATE()
+);
+
+-- Seed Roles
+INSERT INTO Roles (Role, DisplayName, IsSystem, IsActive, CreatedBy) VALUES
+('SystemAdministrator', 'System Administrator', 1, 1, 0),
+('Manager', 'Manager', 1, 1, 0),
+('Supervisor', 'Supervisor', 1, 1, 0),
+('CallCenterAgent', 'Call Center Agent', 1, 1, 0),
+('TechnicalEngineer', 'Technical Engineer', 1, 1, 0),
+('BillingOfficer', 'Billing Officer', 1, 1, 0),
+('Client', 'Client', 1, 1, 0);
+
+-- Seed Permission Modules
+INSERT INTO PermissionModules (Module, DisplayName, IsActive) VALUES
+('Users', 'Users', 1),
+('RolesPermissions', 'Roles & Permissions', 1),
+('Teams', 'Teams', 1),
+('Complaints', 'Complaints', 1),
+('Reports', 'Reports', 1),
+('TeamMembers', 'Team Members', 1),
+('ComplaintStatus', 'Complaint Status', 1),
+('ComplaintNotes', 'Complaint Notes', 1),
+('TechnicalUpdates', 'Technical Updates', 1),
+('BillingRecords', 'Billing Records', 1),
+('CreateComplaint', 'Create Complaint', 1),
+('ViewOwnComplaints', 'View Own Complaints', 1);
+
+-- Seed Default Role Permissions from PRD
+INSERT INTO RolePermissions (RoleId, ModuleId, CanRead, CanWrite, CanDelete, UpdatedBy)
+SELECT r.Id, m.Id,
+       CASE WHEN x.CanRead = 1 THEN 1 ELSE 0 END,
+       CASE WHEN x.CanWrite = 1 THEN 1 ELSE 0 END,
+       CASE WHEN x.CanDelete = 1 THEN 1 ELSE 0 END,
+       0
+FROM Roles r
+INNER JOIN (
+    SELECT 'SystemAdministrator' AS Role, 'Users' AS Module, 1 AS CanRead, 1 AS CanWrite, 1 AS CanDelete UNION ALL
+    SELECT 'SystemAdministrator', 'RolesPermissions', 1, 1, 1 UNION ALL
+    SELECT 'SystemAdministrator', 'Teams', 1, 1, 1 UNION ALL
+    SELECT 'SystemAdministrator', 'Complaints', 1, 1, 1 UNION ALL
+    SELECT 'Manager', 'Complaints', 1, 1, 0 UNION ALL
+    SELECT 'Manager', 'Teams', 1, 0, 0 UNION ALL
+    SELECT 'Manager', 'Reports', 1, 0, 0 UNION ALL
+    SELECT 'Supervisor', 'Complaints', 1, 1, 0 UNION ALL
+    SELECT 'Supervisor', 'TeamMembers', 1, 1, 0 UNION ALL
+    SELECT 'Supervisor', 'ComplaintStatus', 1, 1, 0 UNION ALL
+    SELECT 'CallCenterAgent', 'Complaints', 1, 1, 0 UNION ALL
+    SELECT 'CallCenterAgent', 'ComplaintNotes', 1, 1, 0 UNION ALL
+    SELECT 'TechnicalEngineer', 'Complaints', 1, 1, 0 UNION ALL
+    SELECT 'TechnicalEngineer', 'TechnicalUpdates', 1, 1, 0 UNION ALL
+    SELECT 'BillingOfficer', 'Complaints', 1, 1, 0 UNION ALL
+    SELECT 'BillingOfficer', 'BillingRecords', 1, 1, 0 UNION ALL
+    SELECT 'Client', 'CreateComplaint', 1, 1, 0 UNION ALL
+    SELECT 'Client', 'ViewOwnComplaints', 1, 0, 0
+) x ON x.Role = r.Role
+INNER JOIN PermissionModules m ON m.Module = x.Module;
+
 -- SLA Policies
 CREATE TABLE SLAPolicies (
     Id                     BIGINT        IDENTITY(1,1) PRIMARY KEY,
